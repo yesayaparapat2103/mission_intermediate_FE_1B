@@ -3,7 +3,7 @@ import logo from '../../assets/Logo.png';
 
 const Footer = () => {
   return (
-    <footer className="bg-[#181A1C] mt-[-50px] border-t border-gray-800 px-4 md:px-12 lg:px-24 py-8">
+    <footer className="bg-[#181A1C] lg:mt-[250px] border-t border-gray-800 px-4 md:px-12 lg:px-24 py-8">
       <div className="flex flex-col md:flex-row md:justify-between gap-8 md:gap-12">
         {/* Bagian Kiri: Logo & Copyright */}
         <div className="flex flex-col gap-3">

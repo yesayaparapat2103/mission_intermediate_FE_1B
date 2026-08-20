@@ -6,23 +6,46 @@ import arrowDown from '../../assets/KeyboardArrowDown.png';
 import starIcon from '../../assets/star.png';
 import logoutIcon from '../../assets/login-variant.png';
 
-const Navbar = () => {
+const Navbar = ({ onSearch, onCategoryChange, activeCategory }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
     <nav className="sticky top-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-6 py-4 md:py-6 lg:px-12 bg-[#181A1C] transition-all">
       <div className="flex items-center gap-3 md:gap-8 lg:gap-12 lg:mx-14">
-        <Link to="/home">
+        <Link to="/home" onClick={() => { onCategoryChange?.(""); onSearch?.(""); }} className="focus:outline-none flex items-center">
           <img src={logo} alt="CHILL" className="h-5 md:h-6 lg:h-8" />
         </Link>
         <div className="flex items-center gap-3 md:gap-8 lg:gap-[80px] text-[10px] sm:text-xs md:text-sm lg:text-base font-medium">
-          <Link to="/home" className="text-white hover:text-gray-300 transition">Series</Link>
-          <Link to="/home" className="text-white hover:text-gray-300 transition">Film</Link>
-          <Link to="/home" className="text-white hover:text-gray-300 transition">Daftar Saya</Link>
+          <Link 
+            to="/home" 
+            onClick={() => onCategoryChange?.("series")} 
+            className={`transition ${activeCategory === "series" ? "text-[#09AA29] font-bold" : "text-white hover:text-gray-300"}`}
+          >
+            Series
+          </Link>
+          <Link 
+            to="/home" 
+            onClick={() => onCategoryChange?.("film")} 
+            className={`transition ${activeCategory === "film" ? "text-[#09AA29] font-bold" : "text-white hover:text-gray-300"}`}
+          >
+            Film
+          </Link>
+          <Link to="/watchlist" className="text-white hover:text-gray-300 transition">Daftar Saya</Link>
         </div>
       </div>
 
       <div className="flex items-center gap-2 md:gap-4 lg:mr-14">
+        {onSearch !== undefined && (
+          <div className="relative mr-2 md:mr-4">
+            <input
+              type="text"
+              placeholder="Cari film..."
+              onChange={(e) => onSearch?.(e.target.value)}
+              className="bg-[#2C3033] text-white px-4 py-1.5 rounded-full text-xs md:text-sm focus:outline-none focus:ring-1 focus:ring-[#09AA29] w-32 sm:w-48 placeholder-gray-500"
+            />
+          </div>
+        )}
+
         <div className="relative">
           <button 
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}

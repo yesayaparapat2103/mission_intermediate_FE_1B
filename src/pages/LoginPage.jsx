@@ -1,10 +1,32 @@
 import React from 'react';
 import LoginForm from '../components/organisms/LoginForm';
 import backgroundImage from '../assets/image-background.jpg';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
-  const handleLogin = (data) => {
-    console.log('Login data:', data);
+  const navigate = useNavigate();
+  const handleLogin = async (data) => {
+    try{
+      const response = await axios.post('http://localhost:5000/api/auth/login',{
+        email: data.email,
+        password: data.password,
+      });
+
+      if(response.status === 200){
+        const { token, user } = response.data;
+        localStorage.setItem('token', token);
+        if(user && user.username){
+          localStorage.setItem('username', user.username);
+        }
+        navigate("/home");
+      }
+    }
+    catch (error){
+      console.error("Login gagal", error);
+      const errorMessage = error.response?.data?.message || "Email atau password salah!";
+      alert(errorMessage);
+    }
   };
 
   return (

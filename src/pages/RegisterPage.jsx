@@ -1,11 +1,31 @@
-import React from 'react';
 import RegisterForm from '../components/organisms/RegisterForm';
 import backgroundImage from '../assets/image-background.jpg';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
-  const handleRegister = (data) => {
-    console.log('Register data:', data);
-    // Di sini nantinya kita bisa tambahkan logika ke API
+  const navigate = useNavigate();
+  const handleRegister = async (data) => {
+    if (data.password !== data.confirmPassword){
+      alert("Kata sandi dan konfirmasi kata sandi tidak cocok!");
+      return;
+    } 
+    try {
+      const response = await axios.post('http://localhost:5000/api/auth/register',{
+        username: data.username,
+        email: data.email,
+        password: data.password,
+      });
+
+      if (response.status === 201) {
+        alert("Akun berhasil dibuat! Silahkan login.");
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("register Gagal", error);
+      const errorMessage = error.response?.data?.message || "Gagal membuat akun!";
+      alert(errorMessage);
+    }
   };
 
   return (

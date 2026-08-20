@@ -1,74 +1,56 @@
-import React, { useRef } from 'react';
-import trending1 from '../../assets/trending1.png';
-import trending2 from '../../assets/trending2.png';
-import trending3 from '../../assets/trending3.png';
-import trending4 from '../../assets/trending4.png';
-import trending5 from '../../assets/rilis1.png';
+import React, { useRef, useState } from 'react';
+import MovieCard from '../molecules/MovieCard';
 
-const FilmTrending = ({ onMovieClick }) => {
+const FilmTrending = ({ movies, onAddToWatchlist, onMovieUpdate }) => {
   const scrollContainerRef = useRef(null);
+  const [activeMovieId, setActiveMovieId] = useState(null);
 
   const scroll = (direction) => {
     if (scrollContainerRef.current) {
-      const scrollAmount = 350; // Adjust scroll amount as needed
-      scrollContainerRef.current.scrollBy({ 
-        left: direction === 'left' ? -scrollAmount : scrollAmount, 
-        behavior: 'smooth' 
+      const scrollAmount = 350;
+      scrollContainerRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
       });
     }
   };
 
-  const movies = [
-    { id: 1, image: trending1 },
-    { id: 2, image: trending2 },
-    { id: 3, image: trending3 },
-    { id: 4, image: trending4 },
-    { id: 5, image: trending5},
-  ];
 
   return (
-    <section className="px-4 mt-[-50px] md:mt-0 md:px-12 lg:px-24 py-8">
+    <section className="relative px-4 lg:top-[80px] md:mt-0 md:px-12 lg:px-24 py-8">
       <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-6">
         Film Trending
       </h2>
-      
-      {/* Horizontal Scroll Container */}
+
       <div className="relative">
-        <button 
+        <button
           onClick={() => scroll('left')}
-          className="absolute hidden md:block lg:left-[-25px] top-1/2 -translate-y-1/2 z-20 bg-[#2F3334] hover:bg-gray-700 text-[#FFFFFF] p-3 rounded-full shadow-xl transition-all"
+          className="absolute hidden md:block lg:mt-[30px] lg:left-[-25px] top-1/2 -translate-y-1/2 z-20 bg-[#2F3334] hover:bg-gray-700 text-[#FFFFFF] p-3 rounded-full shadow-xl transition-all"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" /></svg>
         </button>
 
-        <div 
+        <div
           ref={scrollContainerRef}
-          className="flex gap-4 md:gap-[34px] overflow-x-auto pb-4 scrollbar-hide scroll-smooth" 
+          className="flex gap-4 md:gap-[34px] overflow-x-auto py-20 -my-20 pb-4 scrollbar-hide scroll-smooth"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {movies.map((movie) => (
-            <div 
-              key={movie.id} 
-              onClick={() => onMovieClick && onMovieClick(movie)}
-              className="relative flex-none w-[95px] md:w-[180px] lg:w-[234px] aspect-[2/3] rounded-lg overflow-hidden group cursor-pointer transition-transform duration-300 hover:scale-105"
-            >
-              <img 
-                src={movie.image} 
-                alt={`Trending Movie ${movie.id}`} 
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-              
-              {/* Top 10 Badge */}
-              <div className="absolute top-0 right-[3px] md:right-3 bg-[#B71C1C] text-[#FFFFFF] text-[6.69px] md:text-[10px] lg:text-xs font-medium px-[2px] md:px-2 py-1 md:py-1.5 rounded-tr-[1.91px] rounded-bl-[1.91px] text-center leading-tight shadow-md">
-                Top<br />10
-              </div>
-            </div>
+            <MovieCard
+              key={movie.id}
+              movie={movie}
+              onAddToWatchlist={onAddToWatchlist}
+              isActive={activeMovieId === movie.id}
+              onToggle={() => setActiveMovieId(activeMovieId === movie.id ? null : movie.id)}
+              widthClass="w-[95px] sm:w-[140px] md:w-[180px] lg:w-[234px]"
+              onMovieUpdate={onMovieUpdate}
+            />
           ))}
         </div>
 
-        <button 
+        <button
           onClick={() => scroll('right')}
-          className="absolute hidden md:block right-2 lg:right-[-4px] top-1/2 -translate-y-1/2 z-20 bg-[#2F3334] hover:bg-gray-700 text-[#FFFFFF] p-3 rounded-full shadow-xl transition-all"
+          className="absolute hidden md:block lg:mt-[30px] right-2 lg:right-[-4px] top-1/2 -translate-y-1/2 z-20 bg-[#2F3334] hover:bg-gray-700 text-[#FFFFFF] p-3 rounded-full shadow-xl transition-all"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
         </button>

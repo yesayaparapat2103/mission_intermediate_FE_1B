@@ -7,7 +7,7 @@ const Hero = () => {
   return (
     <div className="relative lg:w-full lg:h-[100vh] md:h-[665px] max-h-[600px] flex items-center">
       {/* Background Image & Overlay */}
-      <div 
+      <div
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${heroBg})` }}
       >
@@ -25,9 +25,9 @@ const Hero = () => {
         </p>
         {/* Teks untuk Mobile (Disembunyikan di Desktop) */}
         <p className="block md:hidden -translate-y-8 text-gray-200 text-xs mb-6 max-w-2xl leading-relaxed">
-          Sebuah benda tak dikenal mengambil alih dunia. Dalam keputusasaan, Departemen Pertahanan mulai merekrut... 
+          Sebuah benda tak dikenal mengambil alih dunia. Dalam keputusasaan, Departemen Pertahanan mulai merekrut...
         </p>
-        
+
         <div className="flex -translate-y-10 md:translate-y-0 items-center justify-between w-full">
           <div className="flex flex-wrap items-center gap-2 md:gap-4">
             <Button variant="primary" className="!w-auto px-5 md:px-8 py-[4px] md:py-2.5  border-none text-white font-medium text-sm md:text-base">

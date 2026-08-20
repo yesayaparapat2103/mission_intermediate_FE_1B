@@ -7,7 +7,7 @@ import logoGoogle from '../../assets/logogoogle.png';
 
 const LoginForm = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
-    username: '',
+    email: '',
     password: '',
   });
 
@@ -38,13 +38,13 @@ const LoginForm = ({ onSubmit }) => {
       
       <form onSubmit={handleSubmit}>
         <FormGroup
-          label="Username"
-          type="text"
-          id="username"
-          name="username"
-          placeholder="Masukkan username"
-          value={formData.username}
-          onChange={handleChange}
+        label="Email"
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Masukkan email"
+        value={formData.email}
+        onChange={handleChange}
         />
         
         <FormGroup

@@ -5,9 +5,11 @@ import { Link } from 'react-router-dom';
 import logo from '../../assets/Logo.png';
 import logoGoogle from '../../assets/logogoogle.png';
 
+
 const RegisterForm = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
     username: '',
+    email: '',
     password: '',
     confirmPassword: '',
   });
@@ -45,6 +47,16 @@ const RegisterForm = ({ onSubmit }) => {
           name="username"
           placeholder="Masukkan username"
           value={formData.username}
+          onChange={handleChange}
+        />
+
+        <FormGroup
+          label="Email"
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Masukkan email"
+          value={formData.email}
           onChange={handleChange}
         />
         
